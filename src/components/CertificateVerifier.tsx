@@ -110,7 +110,6 @@ export default function CertificateVerifier() {
         <div className="min-h-dvh bg-slate-100 bg-[radial-gradient(circle_at_top,_#1e3a8a_0%,_#0f172a_45%,_#020617_100%)] px-4 py-8 sm:py-12">
             <div className="mx-auto w-full max-w-md">
                 <Branding />
-                <span>{API_URL}</span>
 
                 <div className="mt-6 overflow-hidden rounded-2xl bg-white shadow-2xl shadow-slate-900/40 ring-1 ring-slate-900/5">
                     {status === 'loading' && <LoadingState />}
