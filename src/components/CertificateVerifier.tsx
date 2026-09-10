@@ -3,10 +3,8 @@ import axios from 'axios'
 import {
     AlertTriangle,
     BadgeCheck,
-    CalendarDays,
     CheckCircle2,
     FileWarning,
-    Hash,
     Info,
     Loader2,
     Lock,
@@ -14,7 +12,6 @@ import {
     ShieldAlert,
     ShieldCheck,
     ShieldQuestion,
-    User,
 } from 'lucide-react'
 
 const API_URL =
@@ -22,11 +19,7 @@ const API_URL =
 
 type Status = 'loading' | 'verified' | 'invalid' | 'revoked' | 'missing' | 'error'
 
-type CertificateData = {
-    cert_id: string
-    recipient: string
-    issued_at: string
-}
+type CertificateData = Record<string, unknown>
 
 type VerifyResponse = {
     valid: boolean
@@ -35,14 +28,24 @@ type VerifyResponse = {
     data?: CertificateData
 }
 
-function formatDate(value: string) {
-    const parsed = new Date(value)
-    if (Number.isNaN(parsed.getTime())) return value
-    return parsed.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-    })
+function formatFieldLabel(key: string) {
+    return key
+        .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+        .replace(/[_-]+/g, ' ')
+        .replace(/\b\w/g, (character) => character.toUpperCase())
+}
+
+function formatFieldValue(value: unknown) {
+    if (value === null || value === undefined) return 'Not provided'
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+        return String(value)
+    }
+
+    try {
+        return JSON.stringify(value)
+    } catch {
+        return String(value)
+    }
 }
 
 function isRevoked(payload: VerifyResponse | undefined) {
@@ -211,23 +214,15 @@ function VerifiedState({ certificate }: { certificate: CertificateData }) {
                 </div>
 
                 <dl className="mt-6 divide-y divide-slate-100 rounded-xl bg-slate-50 ring-1 ring-slate-200/70">
-                    <DetailRow
-                        icon={<User className="h-4 w-4" aria-hidden="true" />}
-                        label="Recipient Name"
-                        value={certificate.recipient}
-                        highlight
-                    />
-                    <DetailRow
-                        icon={<Hash className="h-4 w-4" aria-hidden="true" />}
-                        label="Certificate ID"
-                        value={certificate.cert_id}
-                        mono
-                    />
-                    <DetailRow
-                        icon={<CalendarDays className="h-4 w-4" aria-hidden="true" />}
-                        label="Issue Date"
-                        value={formatDate(certificate.issued_at)}
-                    />
+                    {Object.entries(certificate).map(([key, value]) => (
+                        <DetailRow
+                            key={key}
+                            label={formatFieldLabel(key)}
+                            value={formatFieldValue(value)}
+                            highlight={key === 'recipient'}
+                            mono={key === 'cert_id'}
+                        />
+                    ))}
                 </dl>
 
                 <div className="mt-5 flex gap-3 rounded-xl border-l-4 border-[#f6c719] bg-[#fffdf5] p-4 ring-1 ring-[#f4e8b4]">
@@ -382,13 +377,11 @@ function RetryButton({ onRetry }: { onRetry: () => void }) {
 }
 
 function DetailRow({
-    icon,
     label,
     value,
     highlight = false,
     mono = false,
 }: {
-    icon: React.ReactNode
     label: string
     value: string
     highlight?: boolean
@@ -396,10 +389,7 @@ function DetailRow({
 }) {
     return (
         <div className="flex items-start justify-between gap-4 px-4 py-3.5">
-            <dt className="flex items-center gap-2 text-xs font-medium text-slate-500">
-                <span className="text-slate-400">{icon}</span>
-                {label}
-            </dt>
+            <dt className="text-xs font-medium text-slate-500">{label}</dt>
             <dd
                 className={[
                     'text-right text-sm break-words',
