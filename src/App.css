@@ -1,0 +1,6 @@
+.kbz-page {
+	background-color: #f8faff;
+	background-image:
+		radial-gradient(circle at 100% 0, rgba(246, 199, 25, 0.23), transparent 28rem),
+		linear-gradient(145deg, #ffffff 0%, #f1f6ff 58%, #eaf2ff 100%);
+}

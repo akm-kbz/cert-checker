@@ -107,11 +107,11 @@ export default function CertificateVerifier() {
     }, [verify])
 
     return (
-        <div className="min-h-dvh bg-slate-100 bg-[radial-gradient(circle_at_top,_#1e3a8a_0%,_#0f172a_45%,_#020617_100%)] px-4 py-8 sm:py-12">
+        <div className="kbz-page min-h-dvh px-4 py-5 sm:px-6 sm:py-10">
             <div className="mx-auto w-full max-w-md">
                 <Branding />
 
-                <div className="mt-6 overflow-hidden rounded-2xl bg-white shadow-2xl shadow-slate-900/40 ring-1 ring-slate-900/5">
+            <div className="mt-6 overflow-hidden rounded-2xl bg-white shadow-[0_18px_48px_rgba(17,63,163,0.13)] ring-1 ring-[#dfe7fa]">
                     {status === 'loading' && <LoadingState />}
                     {status === 'verified' && certificate && (
                         <VerifiedState certificate={certificate} />
@@ -141,16 +141,16 @@ export default function CertificateVerifier() {
 
 function Branding() {
     return (
-        <header className="flex items-center gap-3 text-white">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/20 backdrop-blur">
-                <ShieldCheck className="h-6 w-6 text-sky-300" aria-hidden="true" />
+        <header className="flex items-center gap-3">
+            <span className="flex h-12 w-12 flex-col items-center justify-center rounded-lg bg-[#1152b7] text-center text-[13px] font-bold leading-3 tracking-normal text-white shadow-sm">
+                <ShieldCheck className="h-6 w-6" aria-hidden="true" />
             </span>
             <div>
-                <h1 className="text-base font-semibold tracking-tight sm:text-lg">
-                    KBZ Bank Certificate Checker
+                <h1 className="mt-0.5 text-base font-bold tracking-normal text-[#123f93] sm:text-lg">
+                    Certificate verification
                 </h1>
-                <p className="text-xs text-slate-300">
-                    Secure certificate authenticity verification
+                <p className="text-xs text-slate-500">
+                    Official document authentication service
                 </p>
             </div>
         </header>
@@ -161,9 +161,9 @@ function LoadingState() {
     return (
         <section className="flex flex-col items-center px-6 py-14 text-center">
             <div className="relative flex h-16 w-16 items-center justify-center">
-                <span className="absolute inset-0 animate-ping rounded-full bg-blue-500/20" />
+                <span className="absolute inset-0 animate-ping rounded-full bg-[#2f73ef]/15" />
                 <Loader2
-                    className="h-10 w-10 animate-spin text-blue-700"
+                    className="h-10 w-10 animate-spin text-[#1152b7]"
                     aria-hidden="true"
                 />
             </div>
@@ -189,20 +189,23 @@ function LoadingState() {
 function VerifiedState({ certificate }: { certificate: CertificateData }) {
     return (
         <section>
-            <div className="bg-emerald-600 px-6 py-8 text-center text-white">
-                <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/15 ring-4 ring-white/20">
+            <div className="border-b-4 border-[#008000] bg-[#f5f8ff] px-6 py-8 text-center">
+                <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#1a5dcc] text-white shadow-sm ring-4 ring-[#dce8ff]">
                     <CheckCircle2 className="h-9 w-9" aria-hidden="true" />
                 </span>
-                <h2 className="mt-4 text-xl font-bold tracking-tight">
+                <p className="mt-4 text-[10px] font-bold tracking-[0.14em] text-[#1a5dcc] uppercase">
+                    Verification complete
+                </p>
+                <h2 className="mt-1 text-xl font-bold tracking-normal text-[#123f93]">
                     Certificate Verified
                 </h2>
-                <p className="mt-1 text-sm text-emerald-50">
+                <p className="mt-1 text-sm text-slate-600">
                     This certificate is authentic and has not been altered.
                 </p>
             </div>
 
             <div className="px-6 py-6">
-                <div className="flex items-center justify-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-200">
+                <div className="flex items-center justify-center gap-2 rounded-full bg-[#eef4ff] px-4 py-2.5 text-xs font-semibold text-[#174fae] ring-1 ring-[#d7e5ff]">
                     <BadgeCheck className="h-4 w-4" aria-hidden="true" />
                     Officially Verified by KBZ Bank
                 </div>
@@ -227,12 +230,12 @@ function VerifiedState({ certificate }: { certificate: CertificateData }) {
                     />
                 </dl>
 
-                <div className="mt-5 flex gap-3 rounded-xl bg-blue-50 p-4 ring-1 ring-blue-100">
+                <div className="mt-5 flex gap-3 rounded-xl border-l-4 border-[#f6c719] bg-[#fffdf5] p-4 ring-1 ring-[#f4e8b4]">
                     <Info
-                        className="h-5 w-5 shrink-0 text-blue-700"
+                        className="h-5 w-5 shrink-0 text-[#d89d00]"
                         aria-hidden="true"
                     />
-                    <p className="text-xs leading-relaxed text-blue-900">
+                    <p className="text-xs leading-relaxed text-slate-700">
                         <span className="font-semibold">Cross-reference required. </span>
                         Please confirm that the recipient name, certificate ID and issue
                         date shown above exactly match the printed document in your hand.
@@ -253,14 +256,17 @@ function InvalidState({
 }) {
     return (
         <section>
-            <div className="bg-rose-600 px-6 py-8 text-center text-white">
-                <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/15 ring-4 ring-white/20">
+            <div className="border-b-4 border-[#f6c719] bg-[#fff8f7] px-6 py-8 text-center">
+                <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-rose-700 text-white shadow-sm ring-4 ring-rose-100">
                     <ShieldAlert className="h-9 w-9" aria-hidden="true" />
                 </span>
-                <h2 className="mt-4 text-xl font-bold tracking-tight">
+                <p className="mt-4 text-[10px] font-bold tracking-[0.14em] text-rose-700 uppercase">
+                    Verification failed
+                </p>
+                <h2 className="mt-1 text-xl font-bold tracking-normal text-[#123f93]">
                     Certificate Verification Failed
                 </h2>
-                <p className="mt-1 text-sm text-rose-50">
+                <p className="mt-1 text-sm text-slate-600">
                     This certificate could not be authenticated.
                 </p>
             </div>
@@ -298,14 +304,17 @@ function InvalidState({
 function RevokedState({ message }: { message: string }) {
     return (
         <section>
-            <div className="bg-amber-500 px-6 py-8 text-center text-white">
-                <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/20 ring-4 ring-white/25">
+            <div className="border-b-4 border-[#f6c719] bg-[#fffaf0] px-6 py-8 text-center">
+                <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-600 text-white shadow-sm ring-4 ring-amber-100">
                     <FileWarning className="h-9 w-9" aria-hidden="true" />
                 </span>
-                <h2 className="mt-4 text-xl font-bold tracking-tight">
+                <p className="mt-4 text-[10px] font-bold tracking-[0.14em] text-amber-700 uppercase">
+                    Status: revoked
+                </p>
+                <h2 className="mt-1 text-xl font-bold tracking-normal text-[#123f93]">
                     Certificate Revoked
                 </h2>
-                <p className="mt-1 text-sm text-amber-50">
+                <p className="mt-1 text-sm text-slate-600">
                     This certificate is no longer valid.
                 </p>
             </div>
@@ -344,7 +353,7 @@ function NeutralState({
 }) {
     return (
         <section className="px-6 py-10 text-center">
-            <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 ring-4 ring-slate-200/70">
+            <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 ring-4 ring-slate-200">
                 <ShieldQuestion className="h-9 w-9 text-slate-500" aria-hidden="true" />
             </span>
             <h2 className="mt-4 text-lg font-bold tracking-tight text-slate-800">
@@ -364,7 +373,7 @@ function RetryButton({ onRetry }: { onRetry: () => void }) {
         <button
             type="button"
             onClick={onRetry}
-            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 active:scale-[0.99]"
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1152b7] px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0d4298] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2f73ef] focus-visible:ring-offset-2 active:scale-[0.99]"
         >
             <RefreshCw className="h-4 w-4" aria-hidden="true" />
             Try Again
@@ -408,9 +417,12 @@ function DetailRow({
 
 function Footer() {
     return (
-        <p className="mt-6 flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
-            <Lock className="h-3.5 w-3.5" aria-hidden="true" />
-            Secured verification service &middot; KBZ Bank
-        </p>
+        <footer className="mt-6 pt-2 text-center">
+            <p className="flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-500">
+            <Lock className="h-3.5 w-3.5 text-[#1152b7]" aria-hidden="true" />
+                Secured verification service
+            </p>
+            <p className="mt-1 text-[10px] text-slate-400">KBZ Bank &middot; Myanmar</p>
+        </footer>
     )
 }
