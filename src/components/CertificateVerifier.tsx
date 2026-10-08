@@ -15,7 +15,7 @@ import {
 } from 'lucide-react'
 
 const API_URL =
-    import.meta.env.VITE_API_BASE_URL ?? 'https://gi3oqjepp0.execute-api.eu-north-1.amazonaws.com/decrypt'
+    import.meta.env.VITE_API_BASE_URL ?? 'https://sbqfsnd2de.execute-api.ap-southeast-1.amazonaws.com/decrypt'
 
 type Status = 'loading' | 'verified' | 'invalid' | 'revoked' | 'missing' | 'error'
 
